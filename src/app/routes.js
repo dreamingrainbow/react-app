@@ -1,14 +1,21 @@
 import React from 'react';
-
+import { Outlet, useLocation } from 'react-router-dom';
 import AuthRedirect from './provider/AuthRedirect';
 import AppFallback from '../components/common/app-fallback';
 
 import Layout from '../layouts';
 
-const getRouteWrapper = (component, authRoute = true) => {
+//Protected routes Profile, Admin, Dashboard
+const AuthRedirectWrapper = () => {
+  //crude hardcoded approach for now...
+  const protectedPaths = ['/profile', '/admin', '/dashboard'];
+  const location = useLocation();
+  const authRoute = protectedPaths.includes(location.pathname);
   return (
     <AuthRedirect authenticatedRoute={authRoute}>
-      <React.Suspense fallback={<AppFallback />}>{component}</React.Suspense>
+      <React.Suspense fallback={<AppFallback />}>
+        <Outlet />
+      </React.Suspense>
     </AuthRedirect>
   );
 };
@@ -28,122 +35,61 @@ const Admin = React.lazy(() => import('../pages/admin'));
 
 const routes = [
   {
-    path: '/',
-    element: <Layout />,
+    element: <AuthRedirectWrapper />,
     children: [
       {
         path: '/',
-        element: getRouteWrapper(<Home />, false),
-      },
-    ],
-  },
-  {
-    path: '/profile',
-    element: <Layout />,
-    children: [
-      {
-        path: '/profile',
-        element: getRouteWrapper(<Profile />, true),
-      },
-    ],
-  },
-  {
-    path: '/admin',
-    element: <Layout />,
-    children: [
-      {
-        path: '/admin',
-        element: getRouteWrapper(<Admin />, true),
-      },
-    ],
-  },
-  {
-    path: '/register',
-    element: <Layout />,
-    children: [
-      {
-        path: '/register',
-        element: getRouteWrapper(<Register />, false),
-      },
-    ],
-  },
-  {
-    path: '/forgot-password',
-    element: <Layout />,
-    children: [
-      {
-        path: '/forgot-password',
-        element: getRouteWrapper(<ForgotPassword />, false),
-      },
-    ],
-  },
-  {
-    path: '/reset-password',
-    element: <Layout />,
-    children: [
-      {
-        path: '/reset-password',
-        element: getRouteWrapper(<ResetPassword />, false),
-      },
-    ],
-  },
-  {
-    path: '/verify-email',
-    element: <Layout />,
-    children: [
-      {
-        path: '/verify-email',
-        element: getRouteWrapper(<VerifyEmail />, false),
-      },
-    ],
-  },
-  {
-    path: '/identity',
-    element: <Layout />,
-    children: [
-      {
-        path: '/identity',
-        element: getRouteWrapper(<Identity />, false),
-      },
-    ],
-  },
-  {
-    path: '/mfa',
-    element: <Layout />,
-    children: [
-      {
-        path: '/mfa',
-        element: getRouteWrapper(<MFA />, false),
-      },
-    ],
-  },
-  {
-    path: '/dashboard',
-    element: <Layout />,
-    children: [
-      {
-        path: '/dashboard',
-        element: getRouteWrapper(<Dashboard />, true),
-      },
-    ],
-  },
-  {
-    path: '/sign-in',
-    element: <Layout />,
-    children: [
-      {
-        path: '/sign-in',
-        element: getRouteWrapper(<SignIn />, false),
-      },
-    ],
-  },
-  {
-    path: '*',
-    element: <Layout />,
-    children: [
-      {
-        path: '*',
-        element: getRouteWrapper(<NotFound />, false),
+        element: <Layout />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+          },
+          {
+            path: '/profile',
+            element: <Profile />,
+          },
+          {
+            path: '/admin',
+            element: <Admin />,
+          },
+          {
+            path: '/register',
+            element: <Register />,
+          },
+          {
+            path: '/forgot-password',
+            element: <ForgotPassword />,
+          },
+          {
+            path: '/reset-password',
+            element: <ResetPassword />,
+          },
+          {
+            path: '/verify-email',
+            element: <VerifyEmail />,
+          },
+          {
+            path: '/identity',
+            element: <Identity />,
+          },
+          {
+            path: '/mfa',
+            element: <MFA />,
+          },
+          {
+            path: '/dashboard',
+            element: <Dashboard />,
+          },
+          {
+            path: '/sign-in',
+            element: <SignIn />,
+          },
+          {
+            path: '*',
+            element: <NotFound />,
+          },
+        ],
       },
     ],
   },
@@ -152,7 +98,6 @@ const routes = [
 export {
   routes as default,
   routes,
-  getRouteWrapper,
   Layout,
   Home,
   NotFound,
