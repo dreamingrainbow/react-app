@@ -2,14 +2,17 @@ import React from 'react';
 
 import AuthRedirect from './provider/AuthRedirect';
 import AppFallback from '../components/common/app-fallback';
+import AuthProvider from './provider/AuthProvider';
 
 import Layout from '../layouts';
 
 const getRouteWrapper = (component, authRoute = true) => {
   return (
-    <AuthRedirect authenticatedRoute={authRoute}>
-      <React.Suspense fallback={<AppFallback />}>{component}</React.Suspense>
-    </AuthRedirect>
+    <AuthProvider>
+      <AuthRedirect authenticatedRoute={authRoute}>
+        <React.Suspense fallback={<AppFallback />}>{component}</React.Suspense>
+      </AuthRedirect>
+    </AuthProvider>
   );
 };
 

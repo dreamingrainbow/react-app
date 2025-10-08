@@ -346,6 +346,11 @@ export const useContentContext = (props) => {
     }
 
     const Component = ComponentLibrary[section.component];
+    if (!Component) {
+      if (section.component) {
+        Component = section.component;
+      }
+    }
     return (
       <Component {...section.props} key={index} onClick={onClick}>
         {section.content}
@@ -361,6 +366,11 @@ export const useContentContext = (props) => {
     const { initialValues, validationSchema } = section.props;
 
     const Component = ComponentLibrary[section.component];
+    if (!Component) {
+      if (section.component) {
+        Component = section.component;
+      }
+    }
     return (
       <Component
         onSubmit={onSubmit}
@@ -380,6 +390,11 @@ export const useContentContext = (props) => {
       return null;
     }
     const Component = ComponentLibrary[section.component];
+    if (!Component) {
+      if (section.component) {
+        Component = section.component;
+      }
+    }
     if (section.children) {
       if (section.action && section.action.method === 'useForm') {
         // console.log('section', section);
