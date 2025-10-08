@@ -20,7 +20,6 @@ export const useWebSocket = () => {
 };
 
 export const WebSocketProvider = ({ children, liveAPI = false }) => {
-
   const [url, setUrl] = useState('ws://localhost:8080');
   const [apiKey, setApiKey] = useState('');
   const [socket, setSocket] = useState(null);
@@ -150,10 +149,10 @@ export const WebSocketProvider = ({ children, liveAPI = false }) => {
           connectionStateRef.current.hasAttemptedKeyGeneration = false;
           connectionStateRef.current.attempts += 1;
           setReconnectAttempts(connectionStateRef.current.attempts);
-          
+
           const success = await generateAndSetApiKey();
           if (success) {
-            await new Promise(resolve => setTimeout(resolve, 0));
+            await new Promise((resolve) => setTimeout(resolve, 0));
             connect();
           }
         }, timeout);
@@ -188,15 +187,15 @@ export const WebSocketProvider = ({ children, liveAPI = false }) => {
       message: 'Generating new API key and attempting to reconnect...',
       variant: 'info',
     });
-    
+
     // Clean up existing connection first
     cleanupConnection();
-    
+
     // Generate new API key and wait for it to be set
     const success = await generateAndSetApiKey();
     if (success) {
       // Wait for the next render cycle to ensure state is updated
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
       connect();
     }
   }, [connect, enqueueSnackbar, generateAndSetApiKey, cleanupConnection]);

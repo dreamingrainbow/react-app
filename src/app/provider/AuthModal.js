@@ -9,11 +9,11 @@ export const AuthModal = ({ open }) => {
     if (open !== modalOpen) {
       // console.log('AuthModal', open, modalOpen);
       toggle();
-      if (open) {
+      if (modalOpen) {
         setContent(AuthModalComponent);
       }
     }
   }, [open, modalOpen, toggle, setContent]);
 
-  return null;
+  return modalOpen ? <AuthModalComponent /> : null;
 };

@@ -11,7 +11,6 @@ import ScrollToTop from '../../components/common/scroll-to-top';
 import { routes } from '../routes.js';
 
 const AppRoutes = () => {
-
   return (
     <SnackbarProvider
       maxSnack={3}

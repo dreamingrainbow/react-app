@@ -99,6 +99,7 @@ const AuthProvider = withIdleTimer(({ activate, children }) => {
       email,
       token,
     });
+    activate();
     start();
     setAuthenticated(true);
   };
@@ -170,7 +171,7 @@ const AuthProvider = withIdleTimer(({ activate, children }) => {
     getIdleTime,
     getActiveTime,
   } = useIdleTimer({
-    timeout: 1000 * 60 * 5, // 15 minutes
+    timeout: 1000 * 60 * 20, // 1 minutes
     promptBeforeIdle: 1000 * 60 * 1, // 1 minute
     onPrompt,
     onIdle,
