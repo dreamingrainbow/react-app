@@ -1,6 +1,8 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-const BasicLayout = () => <Outlet />;
+const BasicLayout = () => {
+  return (<Outlet />);
+};
 
 export default BasicLayout;

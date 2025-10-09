@@ -21,7 +21,6 @@ import {
   Paper,
   Divider,
 } from '@mui/material';
-import useAppRoutes from '../hooks/useAppRoutes';
 import useAuth from '../hooks/useAuth';
 import useChangeLanguage from '../hooks/useChangeLanguage';
 import useDrawer from '../hooks/useDrawer';
@@ -91,50 +90,15 @@ const ImageComponent = React.lazy(() => import('../components/common/image'));
 
 const Drawer = React.lazy(() => import('../components/common/drawer'));
 
-const MyThree = React.lazy(() => import('../components/custom/three'));
-
 const Intro = React.lazy(() => import('../components/intro'));
 
-const Profile = React.lazy(() => import('../components/custom/profile'));
+const PageBuilder = React.lazy(() => import('../components/PageBuilder'));
 
-const Items = React.lazy(() => import('../components/custom/items'));
+const Layout = React.lazy(() => import('../layouts'));
 
-const Equipment = React.lazy(() => import('../components/custom/equipment'));
+const Home = React.lazy(() => import('../pages/home'));
 
-const Potions = React.lazy(() => import('../components/custom/potions'));
-
-const Spells = React.lazy(() => import('../components/custom/spells'));
-
-const Cures = React.lazy(() => import('../components/custom/cures'));
-
-const Curses = React.lazy(() => import('../components/custom/curses'));
-
-const Blessings = React.lazy(() => import('../components/custom/blessings'));
-
-const Books = React.lazy(() => import('../components/custom/books'));
-
-const Admin = React.lazy(() => import('../components/custom/admin'));
-
-const GameBoard = React.lazy(() => import('../components/custom/game-board'));
-
-const AgentManager = React.lazy(() => import('../components/custom/agent-manager'));
-
-const BoardEditor = React.lazy(() => import('../components/custom/board-editor'));
-
-const CharacterEditor = React.lazy(() => import('../components/custom/character-editor'));
-
-const RoomEditor = React.lazy(() => import('../components/custom/room-editor'));
-
-const Crafting = React.lazy(() => import('../components/custom/crafting'));
-
-const Enchantments = React.lazy(() => import('../components/custom/enchantments'));
-
-const ItemManager = React.lazy(() => import('../components/custom/item-manager'));
-
-const GoldExchange = React.lazy(() => import('../components/custom/gold-exchange'));
-
-const Whispers = React.lazy(() => import('../components/custom/whispers'));
-
+const NotFound = React.lazy(() => import('../pages/not-found'));
 
 const PayloadHandlers = {
   toggle: (v) => !v,
@@ -142,7 +106,7 @@ const PayloadHandlers = {
   filter: (items, filter, key) => items.filter((item) => item[key] !== filter),
 };
 
-const ComponentLibrary = {
+export const ComponentLibrary = {
   Avatar,
   Header: ({ children }) => <>{children}</>,
   Breadcrumbs: ({ children }) => <>{children}</>,
@@ -184,28 +148,11 @@ const ComponentLibrary = {
   Menu,
   MenuItem,
   Paper,
-  MyThree,
   Intro,
-  Profile,
-  Items,
-  Equipment,
-  Potions,
-  Spells,
-  Cures,
-  Curses,
-  Blessings,
-  Books,
-  Admin,
-  GameBoard,
-  AgentManager,
-  BoardEditor,
-  CharacterEditor,
-  RoomEditor,
-  Crafting,
-  Enchantments,
-  ItemManager,
-  GoldExchange,
-  Whispers,
+  PageBuilder,
+  Layout,
+  Home,
+  NotFound,
 };
 
 export const useContentContext = (props) => {
@@ -213,7 +160,6 @@ export const useContentContext = (props) => {
   const _snackbar = useSnackbar();
   const _modal = useModal();
   const _speedDial = useSpeedDial();
-  const _appRoutes = useAppRoutes();
   const _theme = useTheme();
   const _language = useChangeLanguage();
   const _auth = useAuth();
@@ -274,10 +220,10 @@ export const useContentContext = (props) => {
   };
 
   const [state, dispatch] = useReducer(reducer, {
-    loading: false,
+    loading: props?.loading || false,
     error: null,
-    editMode: false,
-    previewMode: false,
+    editMode: props?.editMode || false,
+    previewMode: props?.previewMode || false,
     activeSections: props?.activeSections || [],
     renderSections: null,
   });
@@ -389,12 +335,13 @@ export const useContentContext = (props) => {
     if (!section.component) {
       return null;
     }
-    const Component = ComponentLibrary[section.component];
+    let Component = ComponentLibrary[section.component];
     if (!Component) {
       if (section.component) {
         Component = section.component;
       }
     }
+
     if (section.children) {
       if (section.action && section.action.method === 'useForm') {
         // console.log('section', section);

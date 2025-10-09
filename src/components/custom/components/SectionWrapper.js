@@ -11,7 +11,7 @@ export const SectionWrapper = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   textAlign: 'center',
-  backgroundColor: 'black',
+  backgroundColor: theme.palette.background.default,
   gap: '2px',
 }));
 

@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  snackbar: {
+    maxSnack: 3,
+    anchorOrigin: { vertical: 'top', horizontal: 'right' },
+  },
   drawer: {
     anchor: 'right',
     top: { content: null, open: false },
@@ -47,6 +51,9 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
+    setSnackbar: (state, action) => {
+      state.snackbar = action.payload;
+    },
     setDrawer: (state, action) => {
       state.drawer = action.payload;
     },
@@ -85,6 +92,7 @@ export const appSlice = createSlice({
 });
 
 export const {
+  setSnackbar,
   setDrawer,
   setErrors,
   setModalComponent,
@@ -98,6 +106,7 @@ export const {
   setDrawerAnchor,
 } = appSlice.actions;
 
+export const appSnackbarSelector = (state) => state.app.snackbar;
 export const appDrawerSelector = (state) => state.app.drawer;
 export const appErrorsSelector = (state) => state.app.errors;
 export const appModalSelector = (state) => state.app.modal;

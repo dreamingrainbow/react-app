@@ -5,7 +5,6 @@ import {
   setErrors,
   setModalComponent,
   setNotifications,
-  setRoutes,
   setSettings,
   setTheme,
   toggleModal,
@@ -17,13 +16,9 @@ import {
   appErrorsSelector,
   appModalSelector,
   appNotificationsSelector,
-  appRoutesSelector,
   appSelector,
   appSettingsSelector,
   appThemeSelector,
-  selectRoutes,
-  selectRoute,
-  selectRouteConfig,
 } from '../store/app';
 
 export const useApp = () => {
@@ -38,8 +33,6 @@ export const useApp = () => {
 
   const _setNotifications = (notifications) =>
     dispatch(setNotifications(notifications));
-
-  const _setRoutes = (routes) => dispatch(setRoutes(routes));
 
   const _setSettings = (settings) => dispatch(setSettings(settings));
 
@@ -61,13 +54,8 @@ export const useApp = () => {
   const _appErrors = useSelector(appErrorsSelector);
   const _appModal = useSelector(appModalSelector);
   const _appNotifications = useSelector(appNotificationsSelector);
-  const _appRoutes = useSelector(appRoutesSelector);
   const _appSettings = useSelector(appSettingsSelector);
   const _appTheme = useSelector(appThemeSelector);
-
-  const _selectRoutes = () => useSelector(selectRoutes);
-  const _selectRoute = (path) => useSelector(selectRoute(path));
-  const _selectRouteConfig = (path) => useSelector(selectRouteConfig(path));
 
   return {
     app: _app,
@@ -75,14 +63,12 @@ export const useApp = () => {
     appErrors: _appErrors,
     appModal: _appModal,
     appNotifications: _appNotifications,
-    appRoutes: _appRoutes,
     appSettings: _appSettings,
     appTheme: _appTheme,
     setDrawer: _setDrawer,
     setErrors: _setErrors,
     setModalComponent: _setModalComponent,
     setNotifications: _setNotifications,
-    setRoutes: _setRoutes,
     setSettings: _setSettings,
     setTheme: _setTheme,
     toggleModal: _toggleModal,
@@ -90,8 +76,5 @@ export const useApp = () => {
     toggleDrawer: _toggleDrawer,
     setDrawerContent: _setDrawerContent,
     setDrawerAnchor: _setDrawerAnchor,
-    selectRoutes: _selectRoutes,
-    selectRoute: _selectRoute,
-    selectRouteConfig: _selectRouteConfig,
   };
 };

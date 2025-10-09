@@ -5,7 +5,9 @@ export const PageContent = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   gap: '5px',
-  height: 'calc(100% - 175px)',
+  marginTop: '8px',
+  height: 'calc(100% - 75px)',
+  // border: `1px solid orange`,
 }));
 
 export default PageContent;

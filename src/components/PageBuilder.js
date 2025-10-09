@@ -1,10 +1,8 @@
 import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { useLocation } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { Accordions } from './common/Accordions';
-import { useApp } from '../hooks/useApp';
 import TextField from './elements/text-field/TextField';
 import Form from './common/form';
 import DraggableBox from './DraggableBox';
@@ -35,11 +33,7 @@ const ComponentEditor = ({ comp }) => {
               >
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                   <Typography variant="h6">Image Options</Typography>
-                  <TextField
-                    name="src"
-                    label="Image src"
-                    placeholder="src"
-                  />
+                  <TextField name="src" label="Image src" placeholder="src" />
                   <TextField
                     name="alt"
                     label="Image Alt Text"
@@ -120,11 +114,8 @@ const ComponentAccordion = ({ activeSections }) => {
           },
         })}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
-          <Typography>Page Wizard</Typography>
-        </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
             <Accordions
               items={[
                 {
@@ -579,7 +570,7 @@ const PageBuilder = ({
   setActiveSections,
 }) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
       <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
         <Box
           sx={{
@@ -593,33 +584,37 @@ const PageBuilder = ({
             <Typography variant="h6">Page Builder</Typography>
           </Box>
           <Box sx={{ display: 'flex', gap: 2 }}>
-            <Button onClick={() => setActiveSections([])}>Clear</Button>
+            <Button onClick={() => setEditMode(!values.editMode)}>
+              ✏️ Edit
+            </Button>
+            <Button onClick={() => setPreviewMode(!values.previewMode)}>
+              📃 Preview
+            </Button>
+            <Button onClick={() => setActiveSections([])}>🗑️ Clear</Button>
             <Button
               onClick={() =>
                 dispatch({ type: 'SET_PREVIEW_MODE', payload: true })
               }
             >
-              Publish
+              🚀 Publish
             </Button>
           </Box>
         </Box>
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, border: '1px solid red' }}>
         <Box sx={{ flex: 1 }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
-              <Button onClick={() => setEditMode(!values.editMode)}>
-                Toggle Edit
-              </Button>
-              <Button onClick={() => setPreviewMode(!values.previewMode)}>
-                Preview
-              </Button>
+              <Typography variant="h6">Components</Typography>
             </Box>
             <ComponentAccordion activeSections={values.activeSections} />
           </Box>
         </Box>
         <Box sx={{ flex: 3 }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+              <Typography variant="h6">Preview</Typography>
+            </Box>
             {values.renderSections}
           </Box>
         </Box>

@@ -10,13 +10,12 @@ const TextField = ({ name, ...rest }) => {
     <MuiTextField
       name={name}
       fullWidth
-      variant={'outlined'}
+      variant="standard"
+      size="small"
       autoComplete="off"
-      
       {...field}
       error={meta.touched && Boolean(meta.error)}
       helperText={meta.touched && meta.error}
-      
       {...rest}
     />
   );

@@ -7,7 +7,6 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 export const DraggableBoxContent = ({ title, children, id, position, setPosition }) => {
-
   const [{ isDragging }, ref] = useDrag({
     type: 'BOX',
     item: { id },
@@ -66,10 +65,10 @@ export const DraggableBoxProvider = ({ children }) => {
   );
 };
 
-const DraggableBox = ({ children, id, title }) => {
+const DraggableBox = ({ children, id, title, ...rest }) => {
   return (
     <DndProvider backend={HTML5Backend}>
-      <DraggableBoxContent id={id} title={title}>
+      <DraggableBoxContent id={id} title={title} {...rest}>
         {children}
       </DraggableBoxContent>
     </DndProvider>

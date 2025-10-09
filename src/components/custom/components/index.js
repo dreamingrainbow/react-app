@@ -12,3 +12,5 @@ export * from './PageContent.js';
 export * from './PageMenu.js';
 export * from './StyledButton.js';
 export * from './GameFooterMenu.js';
+export * from './PageNavigation.js';
+export * from './MainMenu.js';

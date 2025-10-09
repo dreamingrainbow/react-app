@@ -6,6 +6,7 @@ export const PageToolBar = styled(Box)(({ theme }) => ({
   flexDirection: 'row',
   gap: '6px',
   justifyContent: 'center',
+  marginTop: '4px',
 }));
 
 export default PageToolBar;

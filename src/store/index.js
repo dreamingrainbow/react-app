@@ -1,10 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import apiInstance from './createApiInstance';
 import appReducer from './app';
+import routesReducer from './routes';
+import speedDialReducer from './speedDial';
 import i18nReducer from './i18n';
 
 const rootReducer = combineReducers({
   app: appReducer,
+  routes: routesReducer,
+  speedDial: speedDialReducer,
   i18n: i18nReducer,
   [apiInstance.reducerPath]: apiInstance.reducer,
 });

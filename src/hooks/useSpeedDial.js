@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  selectSpeeddial,
+  selectSpeedDial,
   setOpen,
   setHidden,
   setDirection,
   setActions,
-} from '../store/speeddial';
+} from '../store/speedDial';
 
 export const useSpeedDial = () => {
   const dispatch = useDispatch();
-  const { open, hidden, direction, actions } = useSelector(selectSpeeddial);
+  const { open, hidden, direction, actions } = useSelector(selectSpeedDial);
 
   const setOpenSpeedDial = (open) => dispatch(setOpen(open));
   const setHiddenSpeedDial = (hidden) => dispatch(setHidden(hidden));

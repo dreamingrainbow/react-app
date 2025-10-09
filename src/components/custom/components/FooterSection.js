@@ -6,9 +6,10 @@ export const FooterSection = styled(Box)(({ theme }) => ({
   flexDirection: 'row',
   justifyContent: 'start',
   textAlign: 'start',
-  marginTop: '-50px',
+  marginTop: '-20px',
   paddingY: '2px',
-  gap: '10px',
+  gap: '1px',
+  borderTop: `1px solid orange`,
 }));
 
 export default FooterSection;

@@ -5,7 +5,7 @@ export const HeaderSection = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   gap: '5px',
-  minHeight: '194px',
+  height: '245px',
 }));
 
 export default HeaderSection;
