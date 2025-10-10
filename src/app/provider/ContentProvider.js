@@ -30,7 +30,7 @@ const Content = ({ config }) => {
   if (values.error) {
     return <>{values.error}</>;
   }
-  if (values.editMode && !values.previewMode) {
+  if (values.editMode) {
     return (
       <PageBuilder
         values={values}
@@ -43,14 +43,6 @@ const Content = ({ config }) => {
         setActiveSections={setActiveSections}
         renderSections={renderSections}
       />
-    );
-  }
-  if (values.previewMode) {
-    return (
-      <>
-        <h3>Preview</h3>
-        {values.renderSections}
-      </>
     );
   }
   return values.renderSections;

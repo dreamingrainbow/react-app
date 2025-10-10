@@ -5,18 +5,21 @@ import { useNavigate } from 'react-router-dom';
 const NotFound = () => {
   const navigate = useNavigate();
   return (
-    <Box>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        gap: 2,
+      }}
+    >
       <Typography variant="h1">404</Typography>
       <Typography variant="h2">Page Not Found</Typography>
-      <Button onClick={() => navigate('/')}>Home</Button>
-      <Button onClick={() => navigate('/sign-in')}>Sign In</Button>
-      <Button onClick={() => navigate('/register')}>Register</Button>
-      <Button onClick={() => navigate('/forgot-password')}>Forgot Password</Button>
-      <Button onClick={() => navigate('/reset-password')}>Reset Password</Button>
-      <Button onClick={() => navigate('/verify-email')}>Verify Email</Button>
-      <Button onClick={() => navigate('/identity')}>Identity</Button>
-      <Button onClick={() => navigate('/mfa')}>Multi Step Authentication</Button>
-      <Button onClick={() => navigate('/dashboard')}>Dashboard</Button>
+      <Box>
+        <Button onClick={() => navigate('/')}>Home</Button>
+      </Box>
     </Box>
   );
 };

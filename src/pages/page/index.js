@@ -1,39 +1,13 @@
 import React from 'react';
+import { useLocation, matchPath } from 'react-router-dom';
 import { ContentProvider } from '../../app/provider/ContentProvider';
+import { useRoutes } from '../../hooks/useRoutes';
 
 const Page = () => {
-  return (
-    <ContentProvider
-      config={{
-        activeSections: [
-          {
-            component: 'Box',
-            props: {
-              sx: {
-                width: '100%',
-                height: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-              },
-            },
-            children: [
-              {
-                component: 'Typography',
-                props: {},
-              },
-              {
-                component: 'Typography',
-                props: {},
-                content: 'Hello World',
-              },
-            ],
-          },
-        ],
-      }}
-    />
-  );
+  const { pathname } = useLocation();
+  const { routes } = useRoutes();
+  const routeConfig = routes.find((r) => matchPath(r.path, pathname))?.config;
+  return <ContentProvider config={routeConfig} />;
 };
 
 export default Page;

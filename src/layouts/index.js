@@ -1,8 +1,5 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-
-const BasicLayout = () => {
-  return (<Outlet />);
-};
-
-export default BasicLayout;
+export {
+  BasicLayout,
+  BasicLayout as Layout,
+} from '../layouts/BasicLayout';
+export { FullPageLayout } from '../layouts/FullPageLayout';

@@ -17,7 +17,18 @@ const AppRoutes = () => {
   const { app } = useApp();
   const { snackbar } = app;
   const { routes } = useCustomRoutes();
-  const [routesInState, setRoutesInState] = React.useState([]);
+  const [routesInState, setRoutesInState] = React.useState([
+    {
+      path: '/',
+      element: <ComponentLibrary.Layout />,
+      children: [
+        {
+          path: '/',
+          element: getRouteWrapper(<ComponentLibrary.Home />, false),
+        },
+      ],
+    },
+  ]);
   const [routesLoaded, setRoutesLoaded] = React.useState(false);
   React.useEffect(() => {
     if (!routesLoaded) {
@@ -31,11 +42,10 @@ const AppRoutes = () => {
             {
               path: route.path,
               element: getRouteWrapper(<Component />, route.config.authRoute),
-            }
+            },
           ],
         };
       });
-
       setRoutesLoaded(true);
       setRoutesInState(loadedRoutes);
     }

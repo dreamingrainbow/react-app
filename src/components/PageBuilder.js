@@ -569,58 +569,90 @@ const PageBuilder = ({
   setPreviewMode,
   setActiveSections,
 }) => {
-  return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+  if (values.editMode || values.previewMode) {
+    return (
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        {!values.previewMode && values.editMode && (
+          <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+            <Box
+              sx={{
+                flex: 1,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography variant="h6">Page Builder</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Button onClick={() => setEditMode(!values.editMode)}>
+                  ✏️ Edit
+                </Button>
+                <Button onClick={() => setPreviewMode(!values.previewMode)}>
+                  📃 Preview
+                </Button>
+                <Button onClick={() => setActiveSections([])}>🗑️ Clear</Button>
+                <Button onClick={() => setPreviewMode(!values.previewMode)}>
+                  🚀 Publish
+                </Button>
+              </Box>
+            </Box>
+          </Box>
+        )}
         <Box
           sx={{
-            flex: 1,
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            flexDirection: 'row',
+            gap: 2,
+            border: '1px solid red',
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography variant="h6">Page Builder</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', gap: 2 }}>
-            <Button onClick={() => setEditMode(!values.editMode)}>
-              ✏️ Edit
-            </Button>
-            <Button onClick={() => setPreviewMode(!values.previewMode)}>
-              📃 Preview
-            </Button>
-            <Button onClick={() => setActiveSections([])}>🗑️ Clear</Button>
-            <Button
-              onClick={() =>
-                dispatch({ type: 'SET_PREVIEW_MODE', payload: true })
-              }
-            >
-              🚀 Publish
-            </Button>
+          {!values.previewMode && values.editMode && (
+            <Box sx={{ flex: 1 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+                  <Typography variant="h6">Components</Typography>
+                </Box>
+                <ComponentAccordion activeSections={values.activeSections} />
+              </Box>
+            </Box>
+          )}
+          <Box sx={{ flex: 3 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                <Typography variant="h6">Preview</Typography>
+                {values.editMode && (
+                  <Button onClick={() => setEditMode(!values.editMode)}>
+                    ✏️ Edit
+                  </Button>
+                )}
+                
+                  <Button onClick={() => setPreviewMode(!values.previewMode)}>
+                    📃 Preview
+                  </Button>
+                
+                <Button onClick={() => setActiveSections([])}>🗑️ Clear</Button>
+                <Button onClick={() => setEditMode(!values.editMode)}>
+                  🚀 Publish
+                </Button>
+              </Box>
+              {values.renderSections}
+            </Box>
           </Box>
         </Box>
       </Box>
-      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, border: '1px solid red' }}>
-        <Box sx={{ flex: 1 }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
-              <Typography variant="h6">Components</Typography>
-            </Box>
-            <ComponentAccordion activeSections={values.activeSections} />
-          </Box>
-        </Box>
-        <Box sx={{ flex: 3 }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-              <Typography variant="h6">Preview</Typography>
-            </Box>
-            {values.renderSections}
-          </Box>
-        </Box>
-      </Box>
-    </Box>
-  );
+    );
+  }
+  if (
+    values.renderSections &&
+    !values.editMode &&
+    !values.previewMode &&
+    values.published
+  ) {
+    return <>{values.renderSections}</>;
+  }
+  return null;
 };
 
 export default PageBuilder;

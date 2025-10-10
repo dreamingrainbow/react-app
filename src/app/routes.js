@@ -4,7 +4,7 @@ import AuthProvider from './provider/AuthProvider';
 import AuthRedirect from './provider/AuthRedirect';
 import AppFallback from '../components/common/app-fallback';
 
-import Layout from '../layouts';
+
 
 const getRouteWrapper = (component, authRoute = true) => {
   return (
@@ -15,6 +15,9 @@ const getRouteWrapper = (component, authRoute = true) => {
     </AuthProvider>
   );
 };
+
+const Layout = React.lazy(() => import('../layouts/BasicLayout'));
+const FullPageLayout = React.lazy(() => import('../layouts/FullPageLayout'));
 
 const Home = React.lazy(() => import('../pages/home'));
 const Page = React.lazy(() => import('../pages/page'));
@@ -33,7 +36,7 @@ const routes = [
   },
   {
     path: '*',
-    element: <Layout />,
+    element: <FullPageLayout />,
     children: [
       {
         path: '*',

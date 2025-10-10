@@ -94,7 +94,13 @@ const Intro = React.lazy(() => import('../components/intro'));
 
 const PageBuilder = React.lazy(() => import('../components/PageBuilder'));
 
-const Layout = React.lazy(() => import('../layouts'));
+
+
+const Layout = React.lazy(() => import('../layouts/BasicLayout'));
+
+const FullPageLayout = React.lazy(() => import('../layouts/FullPageLayout'));
+
+
 
 const Home = React.lazy(() => import('../pages/home'));
 
@@ -153,6 +159,7 @@ export const ComponentLibrary = {
   Layout,
   Home,
   NotFound,
+  FullPageLayout,
 };
 
 export const useContentContext = (props) => {
@@ -305,9 +312,7 @@ export const useContentContext = (props) => {
   };
 
   const handleForm = (index, section) => {
-    let onSubmit = async (values) => {
-
-    };
+    let onSubmit = async (values) => {};
 
     const { initialValues, validationSchema } = section.props;
 
@@ -323,6 +328,7 @@ export const useContentContext = (props) => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         key={index}
+        {...section.props}
       >
         {section.children.map((subsection, subindex) =>
           handleItemSelection(subsection, subindex)
